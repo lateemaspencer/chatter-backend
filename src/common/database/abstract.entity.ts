@@ -1,4 +1,5 @@
 import { Prop, Schema } from "@nestjs/mongoose";
+import { Field, ID, ObjectType } from "@nestjs/graphql"
 import { SchemaTypes, Types } from "mongoose";
 
 // This represents the base mongo document
@@ -6,8 +7,10 @@ import { SchemaTypes, Types } from "mongoose";
 // ensures all other schemas extending it have
 // properly defined and typed _id field
 @Schema()
-export class AbstractDocument {
-	@Prop({ type: SchemaTypes.ObjectId })
+@ObjectType({ isAbstract: true})
+export class AbstractEntity {
+  @Prop({ type: SchemaTypes.ObjectId })
+  @Field(() => ID)
 	// SchemaType is a configuration object for an individual property
 	// says what type a given path should have,
 	// whether is has any getters/setters, and what values are valid
